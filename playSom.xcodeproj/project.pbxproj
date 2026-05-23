@@ -1,0 +1,416 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10001AA /* playSomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10001AB /* playSomApp.swift */; };
+		A10002AA /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002AB /* Channel.swift */; };
+		A10003AA /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10003AB /* AudioPlayer.swift */; };
+		A10004AA /* SomaFMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10004AB /* SomaFMService.swift */; };
+		A10005AA /* NowPlayingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10005AB /* NowPlayingService.swift */; };
+		A10006AA /* RadioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10006AB /* RadioViewModel.swift */; };
+		A10007AA /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10007AB /* MenuBarView.swift */; };
+		A10008AA /* ChannelListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10008AB /* ChannelListView.swift */; };
+		A10009AA /* NowPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10009AB /* NowPlayingView.swift */; };
+		A10010AA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10010AB /* SettingsView.swift */; };
+		A10011AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A10011AB /* Assets.xcassets */; };
+		A10014AA /* FavoriteSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10014AB /* FavoriteSong.swift */; };
+		A10015AA /* FavoritesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10015AB /* FavoritesService.swift */; };
+		A10016AA /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10016AB /* FavoritesView.swift */; };
+		A10017AA /* CachedAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10017AB /* CachedAsyncImage.swift */; };
+		A10018AA /* LegalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10018AB /* LegalView.swift */; };
+		A10019AA /* MarqueeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10019AB /* MarqueeText.swift */; };
+		A10020AA /* GlassModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10020AB /* GlassModifiers.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A10000FF /* playSom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = playSom.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A10001AB /* playSomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playSomApp.swift; sourceTree = "<group>"; };
+		A10002AB /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
+		A10003AB /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		A10004AB /* SomaFMService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomaFMService.swift; sourceTree = "<group>"; };
+		A10005AB /* NowPlayingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingService.swift; sourceTree = "<group>"; };
+		A10006AB /* RadioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioViewModel.swift; sourceTree = "<group>"; };
+		A10007AB /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
+		A10008AB /* ChannelListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelListView.swift; sourceTree = "<group>"; };
+		A10009AB /* NowPlayingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingView.swift; sourceTree = "<group>"; };
+		A10010AB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A10011AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A10012AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A10013AB /* playSom.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = playSom.entitlements; sourceTree = "<group>"; };
+		A10014AB /* FavoriteSong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteSong.swift; sourceTree = "<group>"; };
+		A10015AB /* FavoritesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesService.swift; sourceTree = "<group>"; };
+		A10016AB /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
+		A10017AB /* CachedAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedAsyncImage.swift; sourceTree = "<group>"; };
+		A10018AB /* LegalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalView.swift; sourceTree = "<group>"; };
+		A10019AB /* MarqueeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarqueeText.swift; sourceTree = "<group>"; };
+		A10020AB /* GlassModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassModifiers.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A1000FFF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A1000000 /* root */ = {
+			isa = PBXGroup;
+			children = (
+				A1000010 /* playSom */,
+				A1000020 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A1000010 /* playSom */ = {
+			isa = PBXGroup;
+			children = (
+				A10001AB /* playSomApp.swift */,
+				A10012AB /* Info.plist */,
+				A10013AB /* playSom.entitlements */,
+				A10011AB /* Assets.xcassets */,
+				A1000030 /* Models */,
+				A1000040 /* Services */,
+				A1000050 /* ViewModels */,
+				A1000060 /* Views */,
+			);
+			path = playSom;
+			sourceTree = "<group>";
+		};
+		A1000020 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A10000FF /* playSom.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A1000030 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A10002AB /* Channel.swift */,
+				A10014AB /* FavoriteSong.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A1000040 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A10003AB /* AudioPlayer.swift */,
+				A10004AB /* SomaFMService.swift */,
+				A10005AB /* NowPlayingService.swift */,
+				A10015AB /* FavoritesService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A1000050 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A10006AB /* RadioViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		A1000060 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A10007AB /* MenuBarView.swift */,
+				A10008AB /* ChannelListView.swift */,
+				A10009AB /* NowPlayingView.swift */,
+				A10010AB /* SettingsView.swift */,
+				A10016AB /* FavoritesView.swift */,
+				A10017AB /* CachedAsyncImage.swift */,
+				A10018AB /* LegalView.swift */,
+				A10019AB /* MarqueeText.swift */,
+				A10020AB /* GlassModifiers.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A1000100 /* playSom */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1000400 /* Build configuration list for PBXNativeTarget "playSom" */;
+			buildPhases = (
+				A1000EEE /* Sources */,
+				A1000FFF /* Frameworks */,
+				A1000DDD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = playSom;
+			productName = playSom;
+			productReference = A10000FF /* playSom.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A1000200 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					A1000100 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = A1000300 /* Build configuration list for PBXProject "playSom" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = de;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				de,
+				Base,
+			);
+			mainGroup = A1000000 /* root */;
+			productRefGroup = A1000020 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A1000100 /* playSom */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A1000DDD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10011AA /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A1000EEE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10001AA /* playSomApp.swift in Sources */,
+				A10002AA /* Channel.swift in Sources */,
+				A10003AA /* AudioPlayer.swift in Sources */,
+				A10004AA /* SomaFMService.swift in Sources */,
+				A10005AA /* NowPlayingService.swift in Sources */,
+				A10006AA /* RadioViewModel.swift in Sources */,
+				A10007AA /* MenuBarView.swift in Sources */,
+				A10008AA /* ChannelListView.swift in Sources */,
+				A10009AA /* NowPlayingView.swift in Sources */,
+				A10010AA /* SettingsView.swift in Sources */,
+				A10014AA /* FavoriteSong.swift in Sources */,
+				A10015AA /* FavoritesService.swift in Sources */,
+				A10016AA /* FavoritesView.swift in Sources */,
+				A10017AA /* CachedAsyncImage.swift in Sources */,
+				A10018AA /* LegalView.swift in Sources */,
+				A10019AA /* MarqueeText.swift in Sources */,
+				A10020AA /* GlassModifiers.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A1000301 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A1000302 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		A1000401 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = playSom/playSom.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = playSom/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = playSom;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tobiaslettenmeier.playSom;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A1000402 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = playSom/playSom.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = playSom/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = playSom;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tobiaslettenmeier.playSom;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A1000300 /* Build configuration list for PBXProject "playSom" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1000301 /* Debug */,
+				A1000302 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1000400 /* Build configuration list for PBXNativeTarget "playSom" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1000401 /* Debug */,
+				A1000402 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A1000200 /* Project object */;
+}
