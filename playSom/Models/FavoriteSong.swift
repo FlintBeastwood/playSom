@@ -1,7 +1,7 @@
 import Foundation
 
 /// A song that the user has favorited.
-struct FavoriteSong: Identifiable, Codable, Hashable {
+struct FavoriteSong: Identifiable, Codable, Hashable, TrackParseable {
     let id: UUID
     let title: String         // e.g. "Groovecatcher - What The Croupier Saw"
     let channelId: String     // e.g. "groovesalad"
@@ -16,31 +16,9 @@ struct FavoriteSong: Identifiable, Codable, Hashable {
         self.savedAt = Date()
     }
 
-    // MARK: - Helpers
+    // MARK: - TrackParseable
 
-    /// The artist part of title, e.g. "Groovecatcher" from "Groovecatcher - What The Croupier Saw".
-    /// SomaFM always uses " - " as separator between artist and title.
-    var artist: String {
-        let parts = title.components(separatedBy: " - ")
-        guard parts.count >= 2 else { return title }
-        return parts[0].trimmingCharacters(in: .whitespaces)
-    }
-
-    /// The track title part of title, e.g. "What The Croupier Saw".
-    /// If the title itself contains " - ", we rejoin everything after the first separator.
-    var trackName: String {
-        let parts = title.components(separatedBy: " - ")
-        guard parts.count >= 2 else { return title }
-        return parts.dropFirst().joined(separator: " - ").trimmingCharacters(in: .whitespaces)
-    }
-
-    /// Bandcamp search URL for the track.
-    /// Searches for "Artist+Trackname" so Bandcamp finds the most relevant results.
-    var bandcampSearchURL: URL? {
-        guard !title.isEmpty else { return nil }
-        let query = "\(artist)+\(trackName)"
-        var components = URLComponents(string: "https://bandcamp.com/search")
-        components?.queryItems = [URLQueryItem(name: "q", value: query)]
-        return components?.url
-    }
+    /// Maps to the protocol's raw string for artist/track parsing.
+    var rawTrackString: String { title }
 }
+

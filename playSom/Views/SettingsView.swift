@@ -8,12 +8,12 @@ struct SettingsView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Einstellungen")
+            Text("Settings")
                 .font(.headline)
 
             // Stream Format
             VStack(alignment: .leading, spacing: 4) {
-                Text("Audio-Format")
+                Text("Audio Format")
                     .font(.caption)
                     .fontWeight(.medium)
                 Picker("Format", selection: $viewModel.selectedFormat) {
@@ -27,10 +27,10 @@ struct SettingsView: View {
 
             // Stream Quality
             VStack(alignment: .leading, spacing: 4) {
-                Text("Qualität")
+                Text("Quality")
                     .font(.caption)
                     .fontWeight(.medium)
-                Picker("Qualität", selection: $viewModel.selectedQuality) {
+                Picker("Quality", selection: $viewModel.selectedQuality) {
                     ForEach(StreamQuality.allCases, id: \.self) { quality in
                         Text(quality.displayName).tag(quality)
                     }
@@ -46,7 +46,7 @@ struct SettingsView: View {
                 Text("playSom v1.0")
                     .font(.caption)
                     .fontWeight(.medium)
-                Text("Ein SomaFM Radio Player für macOS")
+                Text("A SomaFM Radio Player for macOS")
                     .font(.caption2)
                     .foregroundStyle(.secondary)
                 Link("somafm.com", destination: URL(string: "https://somafm.com")!)

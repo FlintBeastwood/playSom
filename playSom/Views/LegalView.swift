@@ -39,6 +39,46 @@ struct LegalView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
 
+                    // MARK: SomaFM Support — first and most prominent
+                    VStack(alignment: .leading, spacing: 10) {
+                        HStack(spacing: 6) {
+                            Image(systemName: "antenna.radiowaves.left.and.right")
+                                .font(.caption)
+                                .foregroundStyle(.tint)
+                            Text("Support SomaFM")
+                                .font(.caption)
+                                .fontWeight(.bold)
+                        }
+
+                        Text("playSom is a free, open-source client — but the music isn't free to make. SomaFM pays for servers, bandwidth, and music licensing entirely through listener support.")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
+
+                        Button {
+                            NSWorkspace.shared.open(URL(string: "https://somafm.com/support/")!)
+                        } label: {
+                            HStack(spacing: 6) {
+                                Image(systemName: "heart.fill")
+                                    .font(.caption2)
+                                    .foregroundStyle(.red)
+                                Text("Support SomaFM at somafm.com/support")
+                                    .font(.caption)
+                                    .fontWeight(.medium)
+                                    .foregroundStyle(.tint)
+                            }
+                        }
+                        .buttonStyle(.plain)
+                    }
+                    .padding(12)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color.accentColor.opacity(0.08))
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .strokeBorder(Color.accentColor.opacity(0.25), lineWidth: 0.75)
+                    )
+
                     // MARK: Privacy Policy
                     legalSection(title: "Privacy Policy", icon: "lock.shield") {
                         VStack(alignment: .leading, spacing: 6) {
@@ -61,32 +101,6 @@ struct LegalView: View {
                         }
                     }
 
-                    // MARK: Third-party Content
-                    legalSection(title: "Third-Party Content", icon: "antenna.radiowaves.left.and.right") {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("playSom is an unofficial, open-source client for SomaFM.")
-                                .font(.caption)
-
-                            Text("All streams, channel names, artwork, and metadata are property of SomaFM LLC. Please consider supporting them:")
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
-
-                            Button {
-                                NSWorkspace.shared.open(URL(string: "https://somafm.com/support/")!)
-                            } label: {
-                                HStack(spacing: 4) {
-                                    Image(systemName: "heart.fill")
-                                        .font(.caption2)
-                                        .foregroundStyle(.red)
-                                    Text("somafm.com/support")
-                                        .font(.caption)
-                                        .foregroundStyle(.tint)
-                                }
-                            }
-                            .buttonStyle(.plain)
-                        }
-                    }
-
                     // MARK: License
                     legalSection(title: "License", icon: "doc.badge.gearshape") {
                         VStack(alignment: .leading, spacing: 4) {
@@ -103,7 +117,7 @@ struct LegalView: View {
                                 .foregroundStyle(.secondary)
 
                             Button {
-                                NSWorkspace.shared.open(URL(string: "https://github.com/tobiaslettenmeier/playSom")!)
+                                NSWorkspace.shared.open(URL(string: "https://github.com/FlintBeastwood/playSom")!)
                             } label: {
                                 HStack(spacing: 4) {
                                     Image(systemName: "chevron.left.forwardslash.chevron.right")

@@ -15,12 +15,15 @@ final class AudioPlayer: ObservableObject {
         didSet { player?.volume = volume }
     }
 
-    // MARK: - Private
+    // MARK: - Private State
 
     private var player: AVPlayer?
     private var playerItem: AVPlayerItem?
     private var statusObserver: AnyCancellable?
     private let somaService = SomaFMService()
+
+    /// Standard browser User-Agent to prevent server-side blocks on SomaFM streams.
+    private static let browserUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"
 
     // MARK: - Playback Controls
 
@@ -73,13 +76,13 @@ final class AudioPlayer: ObservableObject {
         }
     }
 
-    // MARK: - Private
+    // MARK: - Stream Resolution
 
     /// Resolves any 302 redirects for the given URL using a lightweight HEAD request with a browser User-Agent.
     private func resolveRedirects(for url: URL) async -> URL {
         var request = URLRequest(url: url)
         request.httpMethod = "HEAD"
-        request.setValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15", forHTTPHeaderField: "User-Agent")
+        request.setValue(Self.browserUserAgent, forHTTPHeaderField: "User-Agent")
         
         do {
             let (_, response) = try await URLSession.shared.data(for: request)
@@ -95,7 +98,7 @@ final class AudioPlayer: ObservableObject {
 
     private func startPlayback(url: URL) {
         // Construct the AVURLAsset with a standard Safari browser User-Agent to prevent server-side blocks
-        let asset = AVURLAsset(url: url, options: [AVURLAssetHTTPUserAgentKey: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"])
+        let asset = AVURLAsset(url: url, options: [AVURLAssetHTTPUserAgentKey: Self.browserUserAgent])
         let item = AVPlayerItem(asset: asset)
         let newPlayer = AVPlayer(playerItem: item)
         newPlayer.volume = volume

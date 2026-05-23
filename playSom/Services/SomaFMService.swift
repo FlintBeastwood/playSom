@@ -40,33 +40,44 @@ actor SomaFMService {
             throw SomaFMError.invalidPlaylistData
         }
 
-        // Extract the first File entry from the PLS content
+        guard let streamURL = extractFirstStreamURL(from: content) else {
+            throw SomaFMError.noStreamURLFound
+        }
+
+        let secureURL = upgradeToHTTPS(streamURL)
+
+        guard isAllowedDomain(secureURL) else {
+            throw SomaFMError.untrustedStreamDomain
+        }
+
+        return secureURL
+    }
+
+    /// Extracts the first "File1=" or "File=" URL from a PLS playlist string.
+    private func extractFirstStreamURL(from content: String) -> URL? {
         let lines = content.components(separatedBy: .newlines)
         for line in lines {
             let trimmed = line.trimmingCharacters(in: .whitespaces)
-            if trimmed.lowercased().hasPrefix("file1=") || trimmed.lowercased().hasPrefix("file=") {
-                let urlString = String(trimmed.dropFirst(trimmed.firstIndex(of: "=")!.utf16Offset(in: trimmed) + 1))
-                if let url = URL(string: urlString.trimmingCharacters(in: .whitespaces)) {
-                    // Force HTTPS to secure connection and prevent network drops/ATS blocks
-                    var secureURL = url
-                    if url.scheme == "http" {
-                        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
-                        components?.scheme = "https"
-                        if let upgraded = components?.url {
-                            secureURL = upgraded
-                        }
-                    }
+            let lowered = trimmed.lowercased()
 
-                    // Security: Only allow URLs from known SomaFM domains
-                    guard isAllowedDomain(secureURL) else {
-                        throw SomaFMError.untrustedStreamDomain
-                    }
-                    return secureURL
-                }
+            guard lowered.hasPrefix("file1=") || lowered.hasPrefix("file="),
+                  let equalsIndex = trimmed.firstIndex(of: "=") else {
+                continue
             }
-        }
 
-        throw SomaFMError.noStreamURLFound
+            let urlString = String(trimmed[trimmed.index(after: equalsIndex)...])
+                .trimmingCharacters(in: .whitespaces)
+            return URL(string: urlString)
+        }
+        return nil
+    }
+
+    /// Upgrades an HTTP URL to HTTPS to satisfy ATS and prevent network drops.
+    private func upgradeToHTTPS(_ url: URL) -> URL {
+        guard url.scheme == "http" else { return url }
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        components?.scheme = "https"
+        return components?.url ?? url
     }
 
     /// Validates that a URL belongs to a known SomaFM domain.

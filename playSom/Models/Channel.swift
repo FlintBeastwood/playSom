@@ -1,7 +1,7 @@
 import Foundation
 
 /// Represents a SomaFM radio channel.
-struct Channel: Identifiable, Codable, Hashable {
+struct Channel: Identifiable, Codable, Hashable, TrackParseable {
     let id: String
     let title: String
     let description: String
@@ -47,34 +47,10 @@ struct Channel: Identifiable, Codable, Hashable {
         URL(string: xlimage.isEmpty ? largeimage : xlimage)
     }
 
-    // MARK: - Track Parsing
+    // MARK: - TrackParseable
 
-    /// The artist part of lastPlaying, e.g. "Groovecatcher" from "Groovecatcher - What The Croupier Saw".
-    /// SomaFM always uses " - " as separator between artist and title.
-    var artist: String {
-        let parts = lastPlaying.components(separatedBy: " - ")
-        guard parts.count >= 2 else { return lastPlaying }
-        return parts[0].trimmingCharacters(in: .whitespaces)
-    }
-
-    /// The track title part of lastPlaying, e.g. "What The Croupier Saw".
-    /// If the title itself contains " - ", we rejoin everything after the first separator.
-    var trackName: String {
-        let parts = lastPlaying.components(separatedBy: " - ")
-        guard parts.count >= 2 else { return lastPlaying }
-        return parts.dropFirst().joined(separator: " - ").trimmingCharacters(in: .whitespaces)
-    }
-
-    /// Bandcamp search URL for the current track.
-    /// Searches for "Artist+Trackname" so Bandcamp finds the most relevant results.
-    var bandcampSearchURL: URL? {
-        guard !lastPlaying.isEmpty else { return nil }
-        // Use artist + track for a more targeted search than the full string
-        let query = "\(artist)+\(trackName)"
-        var components = URLComponents(string: "https://bandcamp.com/search")
-        components?.queryItems = [URLQueryItem(name: "q", value: query)]
-        return components?.url
-    }
+    /// Maps to the protocol's raw string for artist/track parsing.
+    var rawTrackString: String { lastPlaying }
 }
 
 /// Wrapper for decoding the SomaFM channels.json response.

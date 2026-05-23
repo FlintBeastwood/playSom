@@ -100,31 +100,21 @@ struct MenuBarView: View {
                 )
             }
         )
-        .background(.ultraThinMaterial)
         .onAppear {
             NSApp.appearance = NSAppearance(named: isDarkMode ? .darkAqua : .aqua)
-            checkVisibility()
+            isVisible = true
         }
         .task {
             await viewModel.loadChannels()
             viewModel.startPeriodicRefresh()
         }
         .onReceive(NotificationCenter.default.publisher(for: NSWindow.didBecomeKeyNotification)) { _ in
-            checkVisibility()
+            isVisible = true
         }
         .onReceive(NotificationCenter.default.publisher(for: NSWindow.didResignKeyNotification)) { _ in
-            checkVisibility()
+            isVisible = false
         }
     }
-
-    // MARK: - Visibility Helper
-
-    private func checkVisibility() {
-        // Under MenuBarExtra (.window style), the window is visible and active when it is the key window.
-        let keyWindow = NSApp.windows.first(where: { $0.isKeyWindow })
-        isVisible = keyWindow != nil
-    }
-
     // MARK: - Gradient Divider
 
     private var gradientDivider: some View {
@@ -179,7 +169,7 @@ struct MenuBarView: View {
                 }
                 .padding(.horizontal, 9)
                 .padding(.vertical, 4)
-                .background(.regularMaterial)
+                .background(isDarkMode ? Color.white.opacity(0.08) : Color.black.opacity(0.05))
                 .clipShape(Capsule())
                 .overlay(Capsule().strokeBorder(Color.white.opacity(0.22), lineWidth: 1))
             }
@@ -247,75 +237,83 @@ struct MenuBarView: View {
 
     private var bottomControls: some View {
         VStack(spacing: 8) {
-
-            // Custom Volume Slider
-            HStack(spacing: 10) {
-                Image(systemName: "speaker.fill")
-                    .font(.caption2)
-                    .foregroundStyle(.tertiary)
-                
-                CustomVolumeSlider(value: Binding(get: { viewModel.volume }, set: { viewModel.volume = $0 }))
-                
-                Image(systemName: "speaker.wave.3.fill")
-                    .font(.caption2)
-                    .foregroundStyle(.tertiary)
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 2)
-
-            // Error
-            if let error = viewModel.errorMessage {
-                Text(error)
-                    .font(.caption2)
-                    .foregroundStyle(.red)
-                    .lineLimit(2)
-                    .padding(.horizontal, 16)
-            }
-
-            // Info · Theme · Quit
-            HStack {
-                Button { showingLegal = true } label: {
-                    Image(systemName: "info.circle")
-                        .font(.body)
-                        .foregroundStyle(.secondary)
-                }
-                .buttonStyle(.plain)
-                .help("Information & Privacy")
-
-                Spacer()
-
-                // Theme toggle with dynamic rotating spring
-                Button {
-                    withAnimation(.spring(response: 0.45, dampingFraction: 0.65)) {
-                        themeRotation += 360
-                        isDarkMode.toggle()
-                    }
-                } label: {
-                    Image(systemName: isDarkMode ? "sun.max.fill" : "moon.fill")
-                        .font(.body)
-                        .foregroundStyle(
-                            LinearGradient(
-                                colors: [Color.somaAccent, Color.somaPurple],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .rotationEffect(.degrees(themeRotation))
-                        .scaleEffect(isDarkMode ? 1.0 : 0.9)
-                }
-                .buttonStyle(.plain)
-                .help(isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode")
-
-                Spacer()
-
-                Button { NSApplication.shared.terminate(nil) } label: {
-                    Text("Quit").font(.caption).foregroundStyle(.secondary)
-                }
-                .buttonStyle(.plain)
-            }
-            .padding(.horizontal, 16)
+            volumeSlider
+            errorMessage
+            toolbarButtons
         }
         .padding(.vertical, 10)
+    }
+
+    private var volumeSlider: some View {
+        HStack(spacing: 10) {
+            Image(systemName: "speaker.fill")
+                .font(.caption2)
+                .foregroundStyle(.tertiary)
+            
+            CustomVolumeSlider(value: Binding(get: { viewModel.volume }, set: { viewModel.volume = $0 }))
+            
+            Image(systemName: "speaker.wave.3.fill")
+                .font(.caption2)
+                .foregroundStyle(.tertiary)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 2)
+    }
+
+    @ViewBuilder
+    private var errorMessage: some View {
+        if let error = viewModel.errorMessage {
+            Text(error)
+                .font(.caption2)
+                .foregroundStyle(.red)
+                .lineLimit(2)
+                .padding(.horizontal, 16)
+        }
+    }
+
+    private var toolbarButtons: some View {
+        HStack {
+            Button { showingLegal = true } label: {
+                Image(systemName: "info.circle")
+                    .font(.body)
+                    .foregroundStyle(.secondary)
+            }
+            .buttonStyle(.plain)
+            .help("Information & Privacy")
+
+            Spacer()
+            themeToggleButton
+            Spacer()
+
+            Button { NSApplication.shared.terminate(nil) } label: {
+                Text("Quit").font(.caption).foregroundStyle(.secondary)
+            }
+            .buttonStyle(.plain)
+        }
+        .padding(.horizontal, 16)
+    }
+
+    private var themeToggleButton: some View {
+        Button {
+            withAnimation(.spring(response: 0.45, dampingFraction: 0.65)) {
+                themeRotation += 360
+                isDarkMode.toggle()
+            }
+        } label: {
+            Image(systemName: isDarkMode ? "sun.max.fill" : "moon.fill")
+                .font(.body)
+                .foregroundStyle(
+                    LinearGradient(
+                        colors: [Color.somaAccent, Color.somaPurple],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .rotationEffect(.degrees(themeRotation))
+                .scaleEffect(isDarkMode ? 1.0 : 0.9)
+        }
+        .buttonStyle(.plain)
+        .help(isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode")
     }
 }
 

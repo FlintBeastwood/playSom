@@ -25,6 +25,7 @@
 		A10018AA /* LegalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10018AB /* LegalView.swift */; };
 		A10019AA /* MarqueeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10019AB /* MarqueeText.swift */; };
 		A10020AA /* GlassModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10020AB /* GlassModifiers.swift */; };
+		A10021AA /* TrackParseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10021AB /* TrackParseable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		A10018AB /* LegalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalView.swift; sourceTree = "<group>"; };
 		A10019AB /* MarqueeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarqueeText.swift; sourceTree = "<group>"; };
 		A10020AB /* GlassModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassModifiers.swift; sourceTree = "<group>"; };
+		A10021AB /* TrackParseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackParseable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			children = (
 				A10002AB /* Channel.swift */,
 				A10014AB /* FavoriteSong.swift */,
+				A10021AB /* TrackParseable.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 				A10018AA /* LegalView.swift in Sources */,
 				A10019AA /* MarqueeText.swift in Sources */,
 				A10020AA /* GlassModifiers.swift in Sources */,
+				A10021AA /* TrackParseable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

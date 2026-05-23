@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Scrolls text horizontally in a seamless loop when it's wider than its container.
-/// Does NOT use .frame(maxWidth: .infinity) — the parent controls the width via .frame or layout.
+/// Uses TimelineView for animation — completely stops rendering when not visible.
 /// Inherits foregroundStyle from the environment.
 struct MarqueeText: View {
 
@@ -11,10 +11,9 @@ struct MarqueeText: View {
     var delay: Double = 1.2  // pause before starting
     let isVisible: Bool
 
-    @State private var offset: CGFloat = 0
     @State private var textWidth: CGFloat = 0
     @State private var containerWidth: CGFloat = 0
-    @State private var isScrolling = false
+    @State private var startDate: Date?
 
     private let gap: CGFloat = 48
 
@@ -22,39 +21,49 @@ struct MarqueeText: View {
         textWidth > 0 && containerWidth > 0 && textWidth > containerWidth
     }
 
+    private var shouldAnimate: Bool {
+        isVisible && needsMarquee
+    }
+
     var body: some View {
-        // GeometryReader gives us the width that the PARENT assigns to this view.
-        // The parent (HStack) decides how wide we are — we just measure and scroll within it.
         GeometryReader { proxy in
             let available = proxy.size.width
 
-            ZStack(alignment: .leading) {
-                if needsMarquee {
-                    // Two copies side-by-side for a seamless loop
-                    HStack(spacing: gap) {
-                        Text(text).font(font).lineLimit(1).fixedSize()
-                        Text(text).font(font).lineLimit(1).fixedSize()
+            // TimelineView with `paused: true` stops the render loop completely — zero CPU
+            TimelineView(.animation(minimumInterval: 1.0 / 30, paused: !shouldAnimate)) { context in
+                ZStack(alignment: .leading) {
+                    if needsMarquee {
+                        let totalScroll = textWidth + gap
+                        let duration = totalScroll / speed
+                        let elapsed = startDate.map { context.date.timeIntervalSince($0) - delay } ?? -1
+                        let progress = elapsed > 0 ? elapsed.truncatingRemainder(dividingBy: duration) / duration : 0
+                        let currentOffset = -CGFloat(progress) * totalScroll
+
+                        HStack(spacing: gap) {
+                            Text(text).font(font).lineLimit(1).fixedSize()
+                            Text(text).font(font).lineLimit(1).fixedSize()
+                        }
+                        .offset(x: currentOffset)
+                    } else {
+                        Text(text).font(font).lineLimit(1)
+                            .frame(width: available, alignment: .leading)
                     }
-                    .offset(x: offset)
-                } else {
-                    Text(text).font(font).lineLimit(1)
-                        .frame(width: available, alignment: .leading)
                 }
-            }
-            .frame(width: available, alignment: .leading)
-            .clipped()
-            .mask(
-                LinearGradient(
-                    stops: [
-                        .init(color: .clear, location: 0.0),
-                        .init(color: .black, location: needsMarquee ? 0.05 : 0.0),
-                        .init(color: .black, location: needsMarquee ? 0.95 : 1.0),
-                        .init(color: .clear, location: 1.0)
-                    ],
-                    startPoint: .leading,
-                    endPoint: .trailing
+                .frame(width: available, alignment: .leading)
+                .clipped()
+                .mask(
+                    LinearGradient(
+                        stops: [
+                            .init(color: .clear, location: 0.0),
+                            .init(color: .black, location: needsMarquee ? 0.05 : 0.0),
+                            .init(color: .black, location: needsMarquee ? 0.95 : 1.0),
+                            .init(color: .clear, location: 1.0)
+                        ],
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
                 )
-            )
+            }
             // Measure text width via a hidden overlay
             .background(
                 Text(text).font(font).lineLimit(1).fixedSize()
@@ -63,23 +72,19 @@ struct MarqueeText: View {
                         Color.clear.onAppear {
                             textWidth = textGeo.size.width
                             containerWidth = available
-                            maybeStart()
+                            if shouldAnimate { startDate = Date() }
                         }
                     })
             )
             .onChange(of: available) { _, w in
                 containerWidth = w
-                maybeStart()
             }
             .onChange(of: text) { _, _ in
-                reset()
+                textWidth = 0
+                startDate = nil
             }
-            .onChange(of: isVisible) { _, visible in
-                if visible {
-                    maybeStart()
-                } else {
-                    reset()
-                }
+            .onChange(of: shouldAnimate) { _, animating in
+                startDate = animating ? Date() : nil
             }
         }
         // Height matches a single line of the chosen font — no GeometryReader height collapse
@@ -94,23 +99,5 @@ struct MarqueeText: View {
         case .caption:  return 16
         default:        return 18
         }
-    }
-
-    private func maybeStart() {
-        guard isVisible, needsMarquee, !isScrolling else { return }
-        isScrolling = true
-        let duration = Double(textWidth + gap) / speed
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            guard isVisible, isScrolling else { return }
-            withAnimation(.linear(duration: duration).repeatForever(autoreverses: false)) {
-                offset = -(textWidth + gap)
-            }
-        }
-    }
-
-    private func reset() {
-        isScrolling = false
-        offset = 0
-        textWidth = 0
     }
 }

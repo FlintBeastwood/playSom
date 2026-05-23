@@ -128,7 +128,6 @@ final class RadioViewModel: ObservableObject {
     func stop() {
         audioPlayer.stop()
         currentChannel = nil
-        isPlaying = false
         nowPlayingService.clear()
     }
 
