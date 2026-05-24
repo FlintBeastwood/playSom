@@ -59,7 +59,8 @@ Press `⌘R` in Xcode to build and run.
 
 ## Screenshots
 
-<!-- TODO: Add screenshots -->
+![playSom – macOS menu bar radio player](docs/screenshot.png)
+
 
 ## Tech Stack
 
