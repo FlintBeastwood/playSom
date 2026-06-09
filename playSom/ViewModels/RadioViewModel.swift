@@ -23,6 +23,7 @@ final class RadioViewModel: ObservableObject {
 
     let audioPlayer = AudioPlayer()
     let favoritesService = FavoritesService()
+    let pinnedService: PinnedChannelsService
     private let somaService = SomaFMService()
     private let nowPlayingService = NowPlayingService()
     private var cancellables = Set<AnyCancellable>()
@@ -30,19 +31,26 @@ final class RadioViewModel: ObservableObject {
 
     // MARK: - Computed
 
-    /// Channels filtered by search text.
-    var filteredChannels: [Channel] {
-        if searchText.isEmpty {
-            return channels
-        }
-        let query = searchText.lowercased()
-        return channels.filter {
-            $0.title.lowercased().contains(query) ||
-            $0.genre.lowercased().contains(query) ||
-            $0.description.lowercased().contains(query) ||
-            $0.dj.lowercased().contains(query)
-        }
+    /// Channels filtered by search text, partitioned with pinned channels first.
+    /// Pinned and unpinned groups each preserve the existing listener-count sort.
+    var displayedChannels: [Channel] {
+        let base = searchText.isEmpty
+            ? channels
+            : channels.filter {
+                let query = searchText.lowercased()
+                return $0.title.lowercased().contains(query) ||
+                       $0.genre.lowercased().contains(query) ||
+                       $0.description.lowercased().contains(query) ||
+                       $0.dj.lowercased().contains(query)
+            }
+
+        let pinned   = base.filter {  pinnedService.isPinned(id: $0.id) }
+        let unpinned = base.filter { !pinnedService.isPinned(id: $0.id) }
+        return pinned + unpinned
     }
+
+    /// Kept for the Phase 1 baseline test only. Phase 2 uses `displayedChannels`.
+    var filteredChannels: [Channel] { displayedChannels }
 
     /// Volume binding that forwards to the audio player.
     var volume: Float {
@@ -58,7 +66,12 @@ final class RadioViewModel: ObservableObject {
 
     // MARK: - Init
 
-    init() {
+    init(pinnedService: PinnedChannelsService? = nil) {
+        // Construct the default service inside the @MainActor init body rather
+        // than as a default-argument expression — the latter is evaluated in
+        // the caller's isolation context, which is nonisolated for `@main App`
+        // property initializers.
+        self.pinnedService = pinnedService ?? PinnedChannelsService()
         setupBindings()
         setupNowPlaying()
     }
@@ -75,7 +88,9 @@ final class RadioViewModel: ObservableObject {
     /// listener counts and "now playing" info.
     func startPeriodicRefresh() {
         refreshTimer?.invalidate()
-        refreshTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in
+        // 5 minutes is plenty for listener counts and seasonal channel changes;
+        // the live track is driven by ICY metadata from the stream itself.
+        refreshTimer = Timer.scheduledTimer(withTimeInterval: 300, repeats: true) { [weak self] _ in
             guard let self else { return }
             Task { @MainActor in
                 await self.refreshChannels()
@@ -96,13 +111,12 @@ final class RadioViewModel: ObservableObject {
         // Update channel list
         channels = sorted
 
-        // Update current channel's metadata (now playing, listeners)
+        // Update current channel's listener count and other metadata.
+        // `lastPlaying` is exclusively ICY-driven now — preserve whatever the
+        // ICY sink (or the empty initial state) put on currentChannel.
         if let current = currentChannel,
            let updated = sorted.first(where: { $0.id == current.id }) {
-            currentChannel = updated
-            if isPlaying {
-                nowPlayingService.update(channel: updated)
-            }
+            currentChannel = updated.with(lastPlaying: current.lastPlaying)
         }
     }
 
@@ -110,7 +124,9 @@ final class RadioViewModel: ObservableObject {
 
     /// Plays a specific channel.
     func play(channel: Channel) async {
-        currentChannel = channel
+        // Wipe any polled `lastPlaying` value — live track is exclusively
+        // sourced from the stream's ICY metadata once it arrives.
+        currentChannel = channel.with(lastPlaying: "")
         isLoading = true
         errorMessage = nil
 
@@ -178,6 +194,25 @@ final class RadioViewModel: ObservableObject {
                 self?.objectWillChange.send()
             }
             .store(in: &cancellables)
+
+        // Re-publish when pin set changes
+        pinnedService.objectWillChange
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.objectWillChange.send()
+            }
+            .store(in: &cancellables)
+
+        audioPlayer.$liveTrack
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] live in
+                guard let self, let live, !live.isEmpty, let channel = self.currentChannel else { return }
+                if channel.lastPlaying != live {
+                    self.currentChannel = channel.with(lastPlaying: live)
+                    self.nowPlayingService.updateTrackTitle(live)
+                }
+            }
+            .store(in: &cancellables)
     }
 
     private func setupNowPlaying() {
@@ -186,4 +221,14 @@ final class RadioViewModel: ObservableObject {
             self?.togglePlayPause()
         }
     }
+
+    // MARK: - DEBUG Accessors (test-only)
+
+    #if DEBUG
+    /// Test-only: how many Combine subscriptions are currently retained.
+    var debug_cancellableCount: Int { cancellables.count }
+
+    /// Test-only: whether the periodic refresh timer is currently scheduled.
+    var debug_isRefreshTimerScheduled: Bool { refreshTimer != nil }
+    #endif
 }

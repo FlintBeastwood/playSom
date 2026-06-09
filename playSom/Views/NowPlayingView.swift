@@ -41,7 +41,7 @@ struct NowPlayingView: View {
     // MARK: - Artwork
 
     private var artworkView: some View {
-        CachedAsyncImage(url: channel.artworkURL) { image in
+        CachedAsyncImage(url: URL(string: channel.image)) { image in
             image.resizable().aspectRatio(contentMode: .fill)
         } placeholder: {
             Image(systemName: "music.note.tv")
@@ -80,6 +80,11 @@ struct NowPlayingView: View {
                     favoriteButton
                     bandcampButton
                 }
+            } else {
+                Text("No data")
+                    .font(.caption2)
+                    .foregroundStyle(.tertiary)
+                    .italic()
             }
 
             genreBadge

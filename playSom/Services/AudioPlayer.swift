@@ -11,6 +11,7 @@ final class AudioPlayer: ObservableObject {
     @Published private(set) var isPlaying = false
     @Published private(set) var isLoading = false
     @Published private(set) var error: String?
+    @Published private(set) var liveTrack: String?
     @Published var volume: Float = 0.75 {
         didSet { player?.volume = volume }
     }
@@ -20,6 +21,7 @@ final class AudioPlayer: ObservableObject {
     private var player: AVPlayer?
     private var playerItem: AVPlayerItem?
     private var statusObserver: AnyCancellable?
+    private var metadataObserver: AnyCancellable?
     private let somaService = SomaFMService()
 
     /// Standard browser User-Agent to prevent server-side blocks on SomaFM streams.
@@ -59,6 +61,8 @@ final class AudioPlayer: ObservableObject {
         player = nil
         playerItem = nil
         statusObserver = nil
+        metadataObserver = nil
+        liveTrack = nil
         isPlaying = false
         isLoading = false
         error = nil
@@ -119,6 +123,22 @@ final class AudioPlayer: ObservableObject {
                     self.isPlaying = false
                 default:
                     break
+                }
+            }
+
+        metadataObserver = item.publisher(for: \.timedMetadata)
+            .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] metadataItems in
+                guard let self else { return }
+                let title: String? = metadataItems.lazy.compactMap { item -> String? in
+                    if item.commonKey == .commonKeyTitle { return item.stringValue }
+                    if item.identifier?.rawValue == "icy/StreamTitle" { return item.stringValue }
+                    if let key = item.key as? String, key.lowercased().contains("title") { return item.stringValue }
+                    return nil
+                }.first(where: { $0?.isEmpty == false }) ?? nil
+                if let title, !title.isEmpty {
+                    self.liveTrack = title
                 }
             }
 

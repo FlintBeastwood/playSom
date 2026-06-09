@@ -6,12 +6,17 @@ import AppKit
 struct playSomApp: App {
 
     @StateObject private var viewModel = RadioViewModel()
+    @State private var tooltipUpdater = MenuBarTooltipUpdater()
     @AppStorage("isDarkMode") private var isDarkMode = false
 
     var body: some Scene {
         // Menu bar popover — this is the entire UI
         MenuBarExtra {
             MenuBarView(viewModel: viewModel)
+                .task {
+                    await Task.yield()
+                    tooltipUpdater.start(viewModel: viewModel)
+                }
         } label: {
             Label {
                 Text("playSom")

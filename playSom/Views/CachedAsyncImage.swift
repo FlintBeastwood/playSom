@@ -9,16 +9,27 @@ final class ImageCache {
     static let shared = ImageCache()
     private let cache = NSCache<NSURL, NSImage>()
 
-    private init() {
-        cache.countLimit = 200  // max 200 images in memory
+    /// Approximate per-entry memory cost in bytes, used to drive eviction.
+    /// Computed as width × height × 4 (RGBA) — a representative byte count for
+    /// decoded bitmap storage held by `NSImage`.
+    private static func cost(of image: NSImage) -> Int {
+        let size = image.size
+        return Int(size.width) * Int(size.height) * 4
     }
+
+    private init() {
+        cache.countLimit = 200
+        cache.totalCostLimit = 50 * 1024 * 1024   // 50 MB
+    }
+
+    var totalCostLimit: Int { cache.totalCostLimit }
 
     func image(for url: URL) -> NSImage? {
         cache.object(forKey: url as NSURL)
     }
 
     func store(_ image: NSImage, for url: URL) {
-        cache.setObject(image, forKey: url as NSURL)
+        cache.setObject(image, forKey: url as NSURL, cost: Self.cost(of: image))
     }
 }
 
