@@ -13,7 +13,10 @@ final class AudioPlayer: ObservableObject {
     @Published private(set) var error: String?
     @Published private(set) var liveTrack: String?
     @Published var volume: Float = 0.75 {
-        didSet { player?.volume = volume }
+        didSet {
+            player?.volume = volume
+            defaults.set(volume, forKey: Self.volumeKey)
+        }
     }
 
     // MARK: - Private State
@@ -23,6 +26,23 @@ final class AudioPlayer: ObservableObject {
     private var statusObserver: AnyCancellable?
     private var metadataObserver: AnyCancellable?
     private let somaService = SomaFMService()
+    private let defaults: UserDefaults
+
+    private static let volumeKey = "com.playSom.volume"
+    private static let defaultVolume: Float = 0.75
+
+    // MARK: - Init
+
+    init(defaults: UserDefaults = .standard) {
+        self.defaults = defaults
+        // Restore the saved volume. Assigning in init does not trigger the
+        // didSet observer, so this load does not redundantly write back.
+        // Check object presence rather than `float(forKey:)`, since a saved
+        // value of 0 (muted) is legitimate and must not fall back to default.
+        if defaults.object(forKey: Self.volumeKey) != nil {
+            volume = defaults.float(forKey: Self.volumeKey)
+        }
+    }
 
     /// Standard browser User-Agent to prevent server-side blocks on SomaFM streams.
     private static let browserUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"

@@ -366,8 +366,17 @@ struct CustomVolumeSlider: View {
     @Binding var value: Float
     @State private var isHovering = false
     @State private var isDragging = false
-    
+
     @AppStorage("isDarkMode") private var isDarkMode = false
+
+    private static let bubbleWidth: CGFloat = 40
+
+    /// Leading-edge x for the value bubble so it stays centered over the thumb,
+    /// clamped to keep the bubble inside the track bounds.
+    private func bubbleX(in width: CGFloat) -> CGFloat {
+        let thumbCenter = width * CGFloat(value)
+        return min(max(thumbCenter - Self.bubbleWidth / 2, 0), width - Self.bubbleWidth)
+    }
 
     var body: some View {
         GeometryReader { geometry in
@@ -396,6 +405,28 @@ struct CustomVolumeSlider: View {
                     .offset(x: max(0, min(geometry.size.width * CGFloat(value) - 6, geometry.size.width - 12)))
                     .opacity(isHovering || isDragging ? 1.0 : 0.0)
                     .scaleEffect(isHovering || isDragging ? 1.0 : 0.6)
+
+                // Floating value bubble (live percentage above the thumb)
+                Text("\(Int((value * 100).rounded()))%")
+                    .font(.caption2.weight(.semibold))
+                    .monospacedDigit()
+                    .foregroundStyle(.white)
+                    .frame(width: Self.bubbleWidth)
+                    .padding(.vertical, 3)
+                    .background(
+                        Capsule().fill(
+                            LinearGradient(
+                                colors: [Color.somaAccent, Color.somaPurple],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                    )
+                    .shadow(color: .black.opacity(0.2), radius: 3, y: 1.5)
+                    .offset(x: bubbleX(in: geometry.size.width), y: -20)
+                    .opacity(isHovering || isDragging ? 1.0 : 0.0)
+                    .scaleEffect(isHovering || isDragging ? 1.0 : 0.7, anchor: .bottom)
+                    .allowsHitTesting(false)
             }
             .frame(height: 12)
             .contentShape(Rectangle())

@@ -46,6 +46,7 @@
 		E3E51A7A7E6F395106E010E4 /* playSomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CB7E9B8E0F2ABF189CDA85 /* playSomTests.swift */; };
 		E8B4EA391079832CFA09C946 /* ImageCacheCountCapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2267EAF2C4CE808E60993A /* ImageCacheCountCapTests.swift */; };
 		EA7078071F420C7934804738 /* PinnedChannelsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820B2157B563D9431EF98AE /* PinnedChannelsServiceTests.swift */; };
+		A1B2C3D4E5F60718293A4B5C /* AudioPlayerVolumeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1E2D3C4B5A69788796A5B4 /* AudioPlayerVolumeTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +103,7 @@
 		D931C8AEF739BADDF92AFB2D /* ChannelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChannelTests.swift; sourceTree = "<group>"; };
 		E7AABCF19B93635391B21906 /* RadioViewModelFilterTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RadioViewModelFilterTests.swift; sourceTree = "<group>"; };
 		F820B2157B563D9431EF98AE /* PinnedChannelsServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PinnedChannelsServiceTests.swift; sourceTree = "<group>"; };
+		0F1E2D3C4B5A69788796A5B4 /* AudioPlayerVolumeTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AudioPlayerVolumeTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +237,7 @@
 				AB3993496C9E9243CE4B777F /* RadioViewModelLifecycleTests.swift */,
 				7D92FCCB6C4FEDD5B694334D /* PinnedChannelTests.swift */,
 				F820B2157B563D9431EF98AE /* PinnedChannelsServiceTests.swift */,
+				0F1E2D3C4B5A69788796A5B4 /* AudioPlayerVolumeTests.swift */,
 				BCD2E52BE5364E1577427521 /* DisplayedChannelsTests.swift */,
 				16CD6CDD9F998D43D73D9222 /* PopoverHeightTests.swift */,
 				85461FC8D6E88A3870CCFA9E /* ChannelMergeTests.swift */,
@@ -379,6 +382,7 @@
 				94C5F9E3AF1B5FD574C14DC7 /* RadioViewModelLifecycleTests.swift in Sources */,
 				4D3EE2BEB2BB73152ED8D05B /* PinnedChannelTests.swift in Sources */,
 				EA7078071F420C7934804738 /* PinnedChannelsServiceTests.swift in Sources */,
+				A1B2C3D4E5F60718293A4B5C /* AudioPlayerVolumeTests.swift in Sources */,
 				C8084325783FBB9F0914F11B /* DisplayedChannelsTests.swift in Sources */,
 				CF466096E3FF1964A239693D /* PopoverHeightTests.swift in Sources */,
 				1F81269290FD6DFA2296789B /* ChannelMergeTests.swift in Sources */,
