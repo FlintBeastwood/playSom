@@ -51,6 +51,17 @@ struct Channel: Identifiable, Codable, Hashable, TrackParseable {
 
     /// Maps to the protocol's raw string for artist/track parsing.
     var rawTrackString: String { lastPlaying }
+
+    /// Returns a copy of this channel with `lastPlaying` replaced. Used to
+    /// merge live ICY metadata so downstream derived properties (artist,
+    /// trackName, bandcampSearchURL) reflect the live track.
+    func with(lastPlaying newLastPlaying: String) -> Channel {
+        Channel(
+            id: id, title: title, description: description, dj: dj, genre: genre,
+            image: image, largeimage: largeimage, xlimage: xlimage,
+            listeners: listeners, lastPlaying: newLastPlaying, playlists: playlists
+        )
+    }
 }
 
 /// Wrapper for decoding the SomaFM channels.json response.

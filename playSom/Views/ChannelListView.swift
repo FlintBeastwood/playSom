@@ -1,31 +1,72 @@
 import SwiftUI
 
-/// Scrollable list of SomaFM channels with glassmorphism hover and active states.
+/// Scrollable list of SomaFM channels, partitioned into Pinned and All-channels sections.
 struct ChannelListView: View {
 
     let channels: [Channel]
     let currentChannel: Channel?
     let isPlaying: Bool
     let isVisible: Bool
+    let isPinned: (Channel) -> Bool
+    let isSearching: Bool
     let onSelect: (Channel) -> Void
+    let onTogglePin: (Channel) -> Void
+
+    private var pinnedChannels: [Channel] { channels.filter(isPinned) }
+    private var unpinnedChannels: [Channel] { channels.filter { !isPinned($0) } }
+
+    private var showSectionLabels: Bool {
+        !isSearching && !pinnedChannels.isEmpty && !unpinnedChannels.isEmpty
+    }
 
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 2) {
-                ForEach(channels) { channel in
-                    ChannelRow(
-                        channel: channel,
-                        isActive: currentChannel?.id == channel.id,
-                        isPlaying: currentChannel?.id == channel.id && isPlaying,
-                        isVisible: isVisible,
-                        onSelect: { onSelect(channel) }
-                    )
+                if showSectionLabels {
+                    sectionLabel("Pinned")
+                }
+                // Namespace IDs per section so a channel moving between
+                // pinned/unpinned forces SwiftUI to construct a fresh row
+                // rather than reuse the cached one with stale `isPinned`.
+                ForEach(pinnedChannels) { channel in
+                    row(for: channel).id("pinned-\(channel.id)")
+                }
+                if showSectionLabels {
+                    sectionLabel("All channels").padding(.top, 6)
+                }
+                ForEach(unpinnedChannels) { channel in
+                    row(for: channel).id("unpinned-\(channel.id)")
                 }
             }
             .padding(.vertical, 5)
             .padding(.horizontal, 6)
         }
         .scrollIndicators(.automatic)
+    }
+
+    private func row(for channel: Channel) -> some View {
+        ChannelRow(
+            channel: channel,
+            isPinned: isPinned(channel),
+            isActive: currentChannel?.id == channel.id,
+            isPlaying: currentChannel?.id == channel.id && isPlaying,
+            isVisible: isVisible,
+            onSelect: { onSelect(channel) },
+            onTogglePin: { onTogglePin(channel) }
+        )
+    }
+
+    private func sectionLabel(_ text: String) -> some View {
+        HStack {
+            Text(text)
+                .font(.caption2)
+                .fontWeight(.semibold)
+                .foregroundStyle(.secondary)
+                .textCase(.uppercase)
+            Spacer()
+        }
+        .padding(.horizontal, 8)
+        .padding(.bottom, 2)
     }
 }
 
@@ -34,10 +75,12 @@ struct ChannelListView: View {
 struct ChannelRow: View {
 
     let channel: Channel
+    let isPinned: Bool
     let isActive: Bool
     let isPlaying: Bool
     let isVisible: Bool
     let onSelect: () -> Void
+    let onTogglePin: () -> Void
 
     @State private var isHovered = false
     @AppStorage("isDarkMode") private var isDarkMode = false
@@ -48,6 +91,7 @@ struct ChannelRow: View {
                 channelArtwork
                 channelInfo
                 Spacer(minLength: 0)
+                pinButton
                 listenerCount
             }
             .padding(.leading, isActive ? 14 : 10)
@@ -60,12 +104,22 @@ struct ChannelRow: View {
         }
         .buttonStyle(.plain)
         .onHover { hovering in isHovered = hovering }
+        .contextMenu {
+            Button(isPinned ? "Unpin" : "Pin to top", action: onTogglePin)
+        }
+    }
+
+    private var rowTooltip: String {
+        var lines = [channel.title, channel.description]
+        if !channel.genre.isEmpty { lines.append("Genre: \(channel.genre)") }
+        if !channel.dj.isEmpty    { lines.append("DJ: \(channel.dj)") }
+        return lines.joined(separator: "\n")
     }
 
     // MARK: - Row Components
 
     private var channelArtwork: some View {
-        CachedAsyncImage(url: URL(string: channel.largeimage)) { image in
+        CachedAsyncImage(url: URL(string: channel.image)) { image in
             image.resizable().aspectRatio(contentMode: .fill)
         } placeholder: {
             Image(systemName: "music.note")
@@ -89,6 +143,7 @@ struct ChannelRow: View {
                     .fontWeight(.semibold)
                     .lineLimit(1)
                     .foregroundStyle(isActive ? Color.somaAccent : .primary)
+                    .help(rowTooltip)
 
                 if isPlaying {
                     PlayingIndicator(isVisible: isVisible)
@@ -113,6 +168,22 @@ struct ChannelRow: View {
                 .font(.system(size: 8))
                 .foregroundStyle(.tertiary)
         }
+    }
+
+    private var pinButton: some View {
+        Button(action: onTogglePin) {
+            Image(systemName: isPinned ? "pin.fill" : "pin")
+                .font(.system(size: 11, weight: .medium))
+                .foregroundStyle(isPinned ? Color.somaAccent : Color.secondary)
+                .frame(width: 20, height: 20)
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .opacity(isPinned || isHovered ? 1.0 : 0.0)
+        .allowsHitTesting(isPinned || isHovered)
+        .help(isPinned ? "Unpin" : "Pin to top")
+        .animation(.easeInOut(duration: 0.15), value: isHovered)
+        .animation(.easeInOut(duration: 0.15), value: isPinned)
     }
 
     // MARK: - Row Background
@@ -218,7 +289,11 @@ struct PlayingIndicator: View {
         channels: SomaFMService.fallbackChannels,
         currentChannel: SomaFMService.fallbackChannels.first,
         isPlaying: true,
-        isVisible: true
-    ) { _ in }
+        isVisible: true,
+        isPinned: { _ in false },
+        isSearching: false,
+        onSelect: { _ in },
+        onTogglePin: { _ in }
+    )
     .frame(width: 320, height: 400)
 }

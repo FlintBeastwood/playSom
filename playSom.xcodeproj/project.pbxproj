@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B4ED37DA8B261FCD6195ADD /* PinnedChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29059B3906DEA58CF1283B /* PinnedChannel.swift */; };
+		194F94417411C6C3D203DC70 /* PinnedChannelsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CC3DEA8062E9B54E6DA4E /* PinnedChannelsService.swift */; };
+		1F81269290FD6DFA2296789B /* ChannelMergeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85461FC8D6E88A3870CCFA9E /* ChannelMergeTests.swift */; };
+		34171A74DA5F0F6F52B6658D /* ImageCacheByteCapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C940B44E407470D79D7818B /* ImageCacheByteCapTests.swift */; };
+		372E343F518401152E6A7D27 /* RadioViewModelFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AABCF19B93635391B21906 /* RadioViewModelFilterTests.swift */; };
+		3A8F12AAE69B7DFAE55F89D3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 892EC0878B361569B4E05B72 /* Cocoa.framework */; };
+		3B8CFC36A75FC4332DB09DCD /* MenuBarTooltipUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAB93154EA8CDB34D59CC6C /* MenuBarTooltipUpdater.swift */; };
+		4D3EE2BEB2BB73152ED8D05B /* PinnedChannelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D92FCCB6C4FEDD5B694334D /* PinnedChannelTests.swift */; };
+		61A1692E4C9DB191B1C1BBFB /* MenuBarTooltipUpdaterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694C02F6CBB17E4502529F81 /* MenuBarTooltipUpdaterTests.swift */; };
+		61C8CC1113671D5972B2F5FB /* SomaFMServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02734C68D3F5FCAD9310B41 /* SomaFMServiceTests.swift */; };
+		769E11B41D174E069187F65F /* TrackParseableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10291EE2F1AFA6016EFC1889 /* TrackParseableTests.swift */; };
+		939F65644657C8BE647A7E35 /* ChannelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D931C8AEF739BADDF92AFB2D /* ChannelTests.swift */; };
+		94C5F9E3AF1B5FD574C14DC7 /* RadioViewModelLifecycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3993496C9E9243CE4B777F /* RadioViewModelLifecycleTests.swift */; };
+		9D00B64D77C575A55CE2A0BE /* NowPlayingServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B040EB95A225305341B18 /* NowPlayingServiceTests.swift */; };
 		A10001AA /* playSomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10001AB /* playSomApp.swift */; };
 		A10002AA /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002AB /* Channel.swift */; };
 		A10003AA /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10003AB /* AudioPlayer.swift */; };
@@ -26,9 +40,39 @@
 		A10019AA /* MarqueeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10019AB /* MarqueeText.swift */; };
 		A10020AA /* GlassModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10020AB /* GlassModifiers.swift */; };
 		A10021AA /* TrackParseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10021AB /* TrackParseable.swift */; };
+		C631F61870FE9C1EDC66FDFC /* FavoritesServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC1B0D4C04B61DD6E121E94 /* FavoritesServiceTests.swift */; };
+		C8084325783FBB9F0914F11B /* DisplayedChannelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD2E52BE5364E1577427521 /* DisplayedChannelsTests.swift */; };
+		CF466096E3FF1964A239693D /* PopoverHeightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CD6CDD9F998D43D73D9222 /* PopoverHeightTests.swift */; };
+		E3E51A7A7E6F395106E010E4 /* playSomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CB7E9B8E0F2ABF189CDA85 /* playSomTests.swift */; };
+		E8B4EA391079832CFA09C946 /* ImageCacheCountCapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2267EAF2C4CE808E60993A /* ImageCacheCountCapTests.swift */; };
+		EA7078071F420C7934804738 /* PinnedChannelsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820B2157B563D9431EF98AE /* PinnedChannelsServiceTests.swift */; };
+		A1B2C3D4E5F60718293A4B5C /* AudioPlayerVolumeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1E2D3C4B5A69788796A5B4 /* AudioPlayerVolumeTests.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		7F0F6A39B0D472B6BB1FFAC8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1000200 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1000100;
+			remoteInfo = playSom;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		048B040EB95A225305341B18 /* NowPlayingServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NowPlayingServiceTests.swift; sourceTree = "<group>"; };
+		10291EE2F1AFA6016EFC1889 /* TrackParseableTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrackParseableTests.swift; sourceTree = "<group>"; };
+		16CD6CDD9F998D43D73D9222 /* PopoverHeightTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PopoverHeightTests.swift; sourceTree = "<group>"; };
+		694C02F6CBB17E4502529F81 /* MenuBarTooltipUpdaterTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuBarTooltipUpdaterTests.swift; sourceTree = "<group>"; };
+		6C940B44E407470D79D7818B /* ImageCacheByteCapTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ImageCacheByteCapTests.swift; sourceTree = "<group>"; };
+		77CB7E9B8E0F2ABF189CDA85 /* playSomTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = playSomTests.swift; sourceTree = "<group>"; };
+		7D92FCCB6C4FEDD5B694334D /* PinnedChannelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PinnedChannelTests.swift; sourceTree = "<group>"; };
+		85461FC8D6E88A3870CCFA9E /* ChannelMergeTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChannelMergeTests.swift; sourceTree = "<group>"; };
+		892EC0878B361569B4E05B72 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		8EC1B0D4C04B61DD6E121E94 /* FavoritesServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FavoritesServiceTests.swift; sourceTree = "<group>"; };
+		8F29059B3906DEA58CF1283B /* PinnedChannel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PinnedChannel.swift; sourceTree = "<group>"; };
+		968CC3DEA8062E9B54E6DA4E /* PinnedChannelsService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PinnedChannelsService.swift; sourceTree = "<group>"; };
+		A07CE169B263D3BCCC76C03B /* playSomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = playSomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A10000FF /* playSom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = playSom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A10001AB /* playSomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playSomApp.swift; sourceTree = "<group>"; };
 		A10002AB /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
@@ -51,6 +95,15 @@
 		A10019AB /* MarqueeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarqueeText.swift; sourceTree = "<group>"; };
 		A10020AB /* GlassModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassModifiers.swift; sourceTree = "<group>"; };
 		A10021AB /* TrackParseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackParseable.swift; sourceTree = "<group>"; };
+		AB3993496C9E9243CE4B777F /* RadioViewModelLifecycleTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RadioViewModelLifecycleTests.swift; sourceTree = "<group>"; };
+		AF2267EAF2C4CE808E60993A /* ImageCacheCountCapTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ImageCacheCountCapTests.swift; sourceTree = "<group>"; };
+		BCD2E52BE5364E1577427521 /* DisplayedChannelsTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DisplayedChannelsTests.swift; sourceTree = "<group>"; };
+		C02734C68D3F5FCAD9310B41 /* SomaFMServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SomaFMServiceTests.swift; sourceTree = "<group>"; };
+		CBAB93154EA8CDB34D59CC6C /* MenuBarTooltipUpdater.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuBarTooltipUpdater.swift; sourceTree = "<group>"; };
+		D931C8AEF739BADDF92AFB2D /* ChannelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChannelTests.swift; sourceTree = "<group>"; };
+		E7AABCF19B93635391B21906 /* RadioViewModelFilterTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RadioViewModelFilterTests.swift; sourceTree = "<group>"; };
+		F820B2157B563D9431EF98AE /* PinnedChannelsServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PinnedChannelsServiceTests.swift; sourceTree = "<group>"; };
+		0F1E2D3C4B5A69788796A5B4 /* AudioPlayerVolumeTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AudioPlayerVolumeTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,14 +114,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E41E5AB2CECFBB3B3B327605 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A8F12AAE69B7DFAE55F89D3 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A1000000 /* root */ = {
+		2CCA66F84631304FA89EA915 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D38B823DA49B34A4FB39B9E2 /* OS X */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A1000000 = {
 			isa = PBXGroup;
 			children = (
 				A1000010 /* playSom */,
 				A1000020 /* Products */,
+				2CCA66F84631304FA89EA915 /* Frameworks */,
+				E67829C1B97A55E8AD4CF981 /* playSomTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,12 +156,13 @@
 				A1000060 /* Views */,
 			);
 			path = playSom;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		A1000020 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				A10000FF /* playSom.app */,
+				A07CE169B263D3BCCC76C03B /* playSomTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -101,6 +173,7 @@
 				A10002AB /* Channel.swift */,
 				A10014AB /* FavoriteSong.swift */,
 				A10021AB /* TrackParseable.swift */,
+				8F29059B3906DEA58CF1283B /* PinnedChannel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -112,6 +185,8 @@
 				A10004AB /* SomaFMService.swift */,
 				A10005AB /* NowPlayingService.swift */,
 				A10015AB /* FavoritesService.swift */,
+				968CC3DEA8062E9B54E6DA4E /* PinnedChannelsService.swift */,
+				CBAB93154EA8CDB34D59CC6C /* MenuBarTooltipUpdater.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -140,6 +215,39 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		D38B823DA49B34A4FB39B9E2 /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				892EC0878B361569B4E05B72 /* Cocoa.framework */,
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
+		E67829C1B97A55E8AD4CF981 /* playSomTests */ = {
+			isa = PBXGroup;
+			children = (
+				77CB7E9B8E0F2ABF189CDA85 /* playSomTests.swift */,
+				10291EE2F1AFA6016EFC1889 /* TrackParseableTests.swift */,
+				D931C8AEF739BADDF92AFB2D /* ChannelTests.swift */,
+				8EC1B0D4C04B61DD6E121E94 /* FavoritesServiceTests.swift */,
+				C02734C68D3F5FCAD9310B41 /* SomaFMServiceTests.swift */,
+				E7AABCF19B93635391B21906 /* RadioViewModelFilterTests.swift */,
+				AF2267EAF2C4CE808E60993A /* ImageCacheCountCapTests.swift */,
+				6C940B44E407470D79D7818B /* ImageCacheByteCapTests.swift */,
+				AB3993496C9E9243CE4B777F /* RadioViewModelLifecycleTests.swift */,
+				7D92FCCB6C4FEDD5B694334D /* PinnedChannelTests.swift */,
+				F820B2157B563D9431EF98AE /* PinnedChannelsServiceTests.swift */,
+				0F1E2D3C4B5A69788796A5B4 /* AudioPlayerVolumeTests.swift */,
+				BCD2E52BE5364E1577427521 /* DisplayedChannelsTests.swift */,
+				16CD6CDD9F998D43D73D9222 /* PopoverHeightTests.swift */,
+				85461FC8D6E88A3870CCFA9E /* ChannelMergeTests.swift */,
+				048B040EB95A225305341B18 /* NowPlayingServiceTests.swift */,
+				694C02F6CBB17E4502529F81 /* MenuBarTooltipUpdaterTests.swift */,
+			);
+			name = playSomTests;
+			path = playSomTests;
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -159,6 +267,24 @@
 			productName = playSom;
 			productReference = A10000FF /* playSom.app */;
 			productType = "com.apple.product-type.application";
+		};
+		BD070F36477CC29B6E187E2D /* playSomTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9F2DA63719B453F70F8302FD /* Build configuration list for PBXNativeTarget "playSomTests" */;
+			buildPhases = (
+				C01AF8C9C10D6A0D4E0294FF /* Sources */,
+				E41E5AB2CECFBB3B3B327605 /* Frameworks */,
+				4796755D76A511B61F9EA30F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3915125D0F0BE6EEFD82E06C /* PBXTargetDependency */,
+			);
+			name = playSomTests;
+			productName = playSomTests;
+			productReference = A07CE169B263D3BCCC76C03B /* playSomTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -183,17 +309,25 @@
 				de,
 				Base,
 			);
-			mainGroup = A1000000 /* root */;
+			mainGroup = A1000000;
 			productRefGroup = A1000020 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				A1000100 /* playSom */,
+				BD070F36477CC29B6E187E2D /* playSomTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4796755D76A511B61F9EA30F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A1000DDD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -227,12 +361,92 @@
 				A10019AA /* MarqueeText.swift in Sources */,
 				A10020AA /* GlassModifiers.swift in Sources */,
 				A10021AA /* TrackParseable.swift in Sources */,
+				0B4ED37DA8B261FCD6195ADD /* PinnedChannel.swift in Sources */,
+				194F94417411C6C3D203DC70 /* PinnedChannelsService.swift in Sources */,
+				3B8CFC36A75FC4332DB09DCD /* MenuBarTooltipUpdater.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C01AF8C9C10D6A0D4E0294FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E3E51A7A7E6F395106E010E4 /* playSomTests.swift in Sources */,
+				769E11B41D174E069187F65F /* TrackParseableTests.swift in Sources */,
+				939F65644657C8BE647A7E35 /* ChannelTests.swift in Sources */,
+				C631F61870FE9C1EDC66FDFC /* FavoritesServiceTests.swift in Sources */,
+				61C8CC1113671D5972B2F5FB /* SomaFMServiceTests.swift in Sources */,
+				372E343F518401152E6A7D27 /* RadioViewModelFilterTests.swift in Sources */,
+				E8B4EA391079832CFA09C946 /* ImageCacheCountCapTests.swift in Sources */,
+				34171A74DA5F0F6F52B6658D /* ImageCacheByteCapTests.swift in Sources */,
+				94C5F9E3AF1B5FD574C14DC7 /* RadioViewModelLifecycleTests.swift in Sources */,
+				4D3EE2BEB2BB73152ED8D05B /* PinnedChannelTests.swift in Sources */,
+				EA7078071F420C7934804738 /* PinnedChannelsServiceTests.swift in Sources */,
+				A1B2C3D4E5F60718293A4B5C /* AudioPlayerVolumeTests.swift in Sources */,
+				C8084325783FBB9F0914F11B /* DisplayedChannelsTests.swift in Sources */,
+				CF466096E3FF1964A239693D /* PopoverHeightTests.swift in Sources */,
+				1F81269290FD6DFA2296789B /* ChannelMergeTests.swift in Sources */,
+				9D00B64D77C575A55CE2A0BE /* NowPlayingServiceTests.swift in Sources */,
+				61A1692E4C9DB191B1C1BBFB /* MenuBarTooltipUpdaterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		3915125D0F0BE6EEFD82E06C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = playSom;
+			target = A1000100 /* playSom */;
+			targetProxy = 7F0F6A39B0D472B6BB1FFAC8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		515F14B7266DCC7FA77DF42C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tobiaslettenmeier.playSomTests;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/playSom.app/Contents/MacOS/playSom";
+			};
+			name = Release;
+		};
+		71AAAB996FEA7A6997CC1C81 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tobiaslettenmeier.playSomTests;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/playSom.app/Contents/MacOS/playSom";
+			};
+			name = Debug;
+		};
 		A1000301 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -396,6 +610,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9F2DA63719B453F70F8302FD /* Build configuration list for PBXNativeTarget "playSomTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				515F14B7266DCC7FA77DF42C /* Release */,
+				71AAAB996FEA7A6997CC1C81 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A1000300 /* Build configuration list for PBXProject "playSom" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

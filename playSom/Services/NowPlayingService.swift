@@ -28,6 +28,14 @@ final class NowPlayingService {
         MPNowPlayingInfoCenter.default().playbackState = .playing
     }
 
+    /// Updates only the song-title field in the Now Playing info dictionary.
+    /// Call this when ICY metadata reports a new track and the channel hasn't changed.
+    func updateTrackTitle(_ title: String) {
+        var info = MPNowPlayingInfoCenter.default().nowPlayingInfo ?? [:]
+        info[MPMediaItemPropertyTitle] = title
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = info
+    }
+
     /// Clears the Now Playing info when playback stops.
     func clear() {
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nil

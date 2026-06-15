@@ -12,6 +12,40 @@ struct MenuBarView: View {
     @State private var themeRotation = 0.0
     @State private var isVisible = false
 
+    /// Vertical footprint of a single channel row, derived from ChannelRow layout
+    /// (38pt artwork + 14pt vertical padding + 2pt LazyVStack spacing).
+    static let rowHeight: CGFloat = 54
+
+    /// Height of "Pinned" / "All channels" label rows when both sections are visible.
+    static let sectionLabelsHeight: CGFloat = 22
+
+    /// Base popover height with 5 visible channel rows (today's appearance).
+    static let baseHeight: CGFloat = 520
+
+    /// Number of channel rows that should be visible without scrolling, given a
+    /// pin count. See spec §8.1.
+    static func visibleRows(pinned: Int) -> Int {
+        max(5, min(10, pinned + 2))
+    }
+
+    /// Computed popover height, parameterized for testability.
+    /// Adds room for the section-label divider when both pinned and unpinned
+    /// groups will render.
+    static func popoverHeight(pinned: Int, totalChannels: Int) -> CGFloat {
+        let rows = visibleRows(pinned: pinned)
+        let rowDelta = CGFloat(rows - 5) * rowHeight
+        let unpinned = totalChannels - pinned
+        let labelDelta = (pinned > 0 && unpinned > 0) ? sectionLabelsHeight : 0
+        return baseHeight + rowDelta + labelDelta
+    }
+
+    private var popoverHeight: CGFloat {
+        Self.popoverHeight(
+            pinned: viewModel.pinnedService.pinnedIds.count,
+            totalChannels: viewModel.channels.count
+        )
+    }
+
     var body: some View {
         ZStack(alignment: .top) {
 
@@ -61,13 +95,21 @@ struct MenuBarView: View {
                     searchBar
 
                     ChannelListView(
-                        channels: viewModel.filteredChannels,
+                        channels: viewModel.displayedChannels,
                         currentChannel: viewModel.currentChannel,
                         isPlaying: viewModel.isPlaying,
-                        isVisible: isVisible
-                    ) { channel in
-                        Task { await viewModel.play(channel: channel) }
-                    }
+                        isVisible: isVisible,
+                        isPinned: { viewModel.pinnedService.isPinned(id: $0.id) },
+                        isSearching: !viewModel.searchText.isEmpty,
+                        onSelect: { channel in
+                            Task { await viewModel.play(channel: channel) }
+                        },
+                        onTogglePin: { channel in
+                            withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
+                                _ = viewModel.pinnedService.togglePin(id: channel.id)
+                            }
+                        }
+                    )
 
                     gradientDivider
                     bottomControls
@@ -75,7 +117,8 @@ struct MenuBarView: View {
             }
             .zIndex(0)
         }
-        .frame(width: 320, height: 520)
+        .frame(width: 320, height: popoverHeight)
+        .animation(.spring(response: 0.35, dampingFraction: 0.85), value: popoverHeight)
         .background(
             ZStack {
                 Color.clear
@@ -323,8 +366,17 @@ struct CustomVolumeSlider: View {
     @Binding var value: Float
     @State private var isHovering = false
     @State private var isDragging = false
-    
+
     @AppStorage("isDarkMode") private var isDarkMode = false
+
+    private static let bubbleWidth: CGFloat = 40
+
+    /// Leading-edge x for the value bubble so it stays centered over the thumb,
+    /// clamped to keep the bubble inside the track bounds.
+    private func bubbleX(in width: CGFloat) -> CGFloat {
+        let thumbCenter = width * CGFloat(value)
+        return min(max(thumbCenter - Self.bubbleWidth / 2, 0), width - Self.bubbleWidth)
+    }
 
     var body: some View {
         GeometryReader { geometry in
@@ -353,6 +405,28 @@ struct CustomVolumeSlider: View {
                     .offset(x: max(0, min(geometry.size.width * CGFloat(value) - 6, geometry.size.width - 12)))
                     .opacity(isHovering || isDragging ? 1.0 : 0.0)
                     .scaleEffect(isHovering || isDragging ? 1.0 : 0.6)
+
+                // Floating value bubble (live percentage above the thumb)
+                Text("\(Int((value * 100).rounded()))%")
+                    .font(.caption2.weight(.semibold))
+                    .monospacedDigit()
+                    .foregroundStyle(.white)
+                    .frame(width: Self.bubbleWidth)
+                    .padding(.vertical, 3)
+                    .background(
+                        Capsule().fill(
+                            LinearGradient(
+                                colors: [Color.somaAccent, Color.somaPurple],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                    )
+                    .shadow(color: .black.opacity(0.2), radius: 3, y: 1.5)
+                    .offset(x: bubbleX(in: geometry.size.width), y: -20)
+                    .opacity(isHovering || isDragging ? 1.0 : 0.0)
+                    .scaleEffect(isHovering || isDragging ? 1.0 : 0.7, anchor: .bottom)
+                    .allowsHitTesting(false)
             }
             .frame(height: 12)
             .contentShape(Rectangle())

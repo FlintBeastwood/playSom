@@ -8,7 +8,10 @@ final class FavoritesService: ObservableObject {
 
     @Published private(set) var favorites: [FavoriteSong] = []
 
-    init() {
+    private let defaults: UserDefaults
+
+    init(defaults: UserDefaults = .standard) {
+        self.defaults = defaults
         loadFavorites()
     }
 
@@ -64,14 +67,14 @@ final class FavoritesService: ObservableObject {
     private func saveFavorites() {
         do {
             let data = try JSONEncoder().encode(favorites)
-            UserDefaults.standard.set(data, forKey: Self.storageKey)
+            defaults.set(data, forKey: Self.storageKey)
         } catch {
             print("[FavoritesService] Failed to save favorites: \(error)")
         }
     }
 
     private func loadFavorites() {
-        guard let data = UserDefaults.standard.data(forKey: Self.storageKey) else { return }
+        guard let data = defaults.data(forKey: Self.storageKey) else { return }
         do {
             favorites = try JSONDecoder().decode([FavoriteSong].self, from: data)
         } catch {

@@ -17,6 +17,7 @@ A lightweight, open-source macOS menu bar app for streaming [SomaFM](https://som
 - 🎵 **30+ SomaFM Channels** — Groove Salad, Drone Zone, DEF CON Radio and more
 - 📡 **Lives in your menu bar** — No dock icon, no clutter
 - ⭐ **Favorites** — Save tracks you love and find them instantly
+- 📌 **Pin channels** — Keep your go-to stations at the top of the list
 - 🛒 **Bandcamp search** — Buy music you discover with one click
 - 🔍 **Search** — Filter channels by name, genre, or DJ
 - 🎚️ **Volume control** — Built-in slider

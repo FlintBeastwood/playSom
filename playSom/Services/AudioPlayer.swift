@@ -11,8 +11,12 @@ final class AudioPlayer: ObservableObject {
     @Published private(set) var isPlaying = false
     @Published private(set) var isLoading = false
     @Published private(set) var error: String?
+    @Published private(set) var liveTrack: String?
     @Published var volume: Float = 0.75 {
-        didSet { player?.volume = volume }
+        didSet {
+            player?.volume = volume
+            defaults.set(volume, forKey: Self.volumeKey)
+        }
     }
 
     // MARK: - Private State
@@ -20,7 +24,25 @@ final class AudioPlayer: ObservableObject {
     private var player: AVPlayer?
     private var playerItem: AVPlayerItem?
     private var statusObserver: AnyCancellable?
+    private var metadataObserver: AnyCancellable?
     private let somaService = SomaFMService()
+    private let defaults: UserDefaults
+
+    private static let volumeKey = "com.playSom.volume"
+    private static let defaultVolume: Float = 0.75
+
+    // MARK: - Init
+
+    init(defaults: UserDefaults = .standard) {
+        self.defaults = defaults
+        // Restore the saved volume. Assigning in init does not trigger the
+        // didSet observer, so this load does not redundantly write back.
+        // Check object presence rather than `float(forKey:)`, since a saved
+        // value of 0 (muted) is legitimate and must not fall back to default.
+        if defaults.object(forKey: Self.volumeKey) != nil {
+            volume = defaults.float(forKey: Self.volumeKey)
+        }
+    }
 
     /// Standard browser User-Agent to prevent server-side blocks on SomaFM streams.
     private static let browserUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"
@@ -59,6 +81,8 @@ final class AudioPlayer: ObservableObject {
         player = nil
         playerItem = nil
         statusObserver = nil
+        metadataObserver = nil
+        liveTrack = nil
         isPlaying = false
         isLoading = false
         error = nil
@@ -119,6 +143,22 @@ final class AudioPlayer: ObservableObject {
                     self.isPlaying = false
                 default:
                     break
+                }
+            }
+
+        metadataObserver = item.publisher(for: \.timedMetadata)
+            .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] metadataItems in
+                guard let self else { return }
+                let title: String? = metadataItems.lazy.compactMap { item -> String? in
+                    if item.commonKey == .commonKeyTitle { return item.stringValue }
+                    if item.identifier?.rawValue == "icy/StreamTitle" { return item.stringValue }
+                    if let key = item.key as? String, key.lowercased().contains("title") { return item.stringValue }
+                    return nil
+                }.first(where: { $0?.isEmpty == false }) ?? nil
+                if let title, !title.isEmpty {
+                    self.liveTrack = title
                 }
             }
 
