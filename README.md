@@ -59,7 +59,9 @@ open playSom.xcodeproj
 
 Press `⌘R` in Xcode to build and run.
 
+## Screenshots
 
+![playSom – macOS menu bar radio player](docs/screenshot.png)
 
 ## Tech Stack
 
