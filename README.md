@@ -3,7 +3,7 @@
 A lightweight, open-source macOS menu bar app for streaming [SomaFM](https://somafm.com) internet radio.
 
 ![macOS](https://img.shields.io/badge/macOS-13.0%2B-blue)
-![Swift](https://img.shields.io/badge/Swift-5.9-orange)
+![Swift](https://img.shields.io/badge/Swift-6.0-orange)
 ![License](https://img.shields.io/badge/license-AGPLv3-red)
 
 ---
@@ -20,9 +20,10 @@ A lightweight, open-source macOS menu bar app for streaming [SomaFM](https://som
 - 📌 **Pin channels** — Keep your go-to stations at the top of the list
 - 🛒 **Bandcamp search** — Buy music you discover with one click
 - 🔍 **Search** — Filter channels by name, genre, or DJ
-- 🎚️ **Volume control** — Built-in slider
+- 🎚️ **Volume control** — Built-in slider with persistent memory across launches
 - 🎹 **Media key support** — Play/Pause with your keyboard
 - 🖥️ **Now Playing** — Shows current track in the macOS media widget
+- 💡 **Hover tooltip** — Hover over the menu bar icon to see the current song without opening the app
 - 📊 **Live data** — Channel list refreshes automatically every 60 seconds
 - 🌙 **Dark & Light mode** — Follows your preference
 - ⚡ **Lightweight** — Native Swift, ~5 MB, ~1.7% CPU at idle
@@ -58,9 +59,6 @@ open playSom.xcodeproj
 
 Press `⌘R` in Xcode to build and run.
 
-## Screenshots
-
-![playSom – macOS menu bar radio player](docs/screenshot.png)
 
 
 ## Tech Stack

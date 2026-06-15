@@ -24,7 +24,7 @@ final class AudioPlayer: ObservableObject {
     private var player: AVPlayer?
     private var playerItem: AVPlayerItem?
     private var statusObserver: AnyCancellable?
-    private var metadataObserver: AnyCancellable?
+    private var metadataDelegate: MetadataDelegate?
     private let somaService = SomaFMService()
     private let defaults: UserDefaults
 
@@ -81,7 +81,7 @@ final class AudioPlayer: ObservableObject {
         player = nil
         playerItem = nil
         statusObserver = nil
-        metadataObserver = nil
+        metadataDelegate = nil
         liveTrack = nil
         isPlaying = false
         isLoading = false
@@ -146,23 +146,43 @@ final class AudioPlayer: ObservableObject {
                 }
             }
 
-        metadataObserver = item.publisher(for: \.timedMetadata)
-            .compactMap { $0 }
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] metadataItems in
-                guard let self else { return }
-                let title: String? = metadataItems.lazy.compactMap { item -> String? in
-                    if item.commonKey == .commonKeyTitle { return item.stringValue }
-                    if item.identifier?.rawValue == "icy/StreamTitle" { return item.stringValue }
-                    if let key = item.key as? String, key.lowercased().contains("title") { return item.stringValue }
-                    return nil
-                }.first(where: { $0?.isEmpty == false }) ?? nil
-                if let title, !title.isEmpty {
-                    self.liveTrack = title
-                }
-            }
+        let metadataOutput = AVPlayerItemMetadataOutput()
+        let delegate = MetadataDelegate()
+        delegate.onTitleUpdated = { [weak self] title in
+            self?.liveTrack = title
+        }
+        metadataOutput.setDelegate(delegate, queue: .main)
+        item.add(metadataOutput)
+        self.metadataDelegate = delegate
 
         self.playerItem = item
         self.player = newPlayer
+    }
+}
+
+private class MetadataDelegate: NSObject, AVPlayerItemMetadataOutputPushDelegate {
+    var onTitleUpdated: ((String) -> Void)?
+    
+    func metadataOutput(_ output: AVPlayerItemMetadataOutput, didOutputTimedMetadataGroups groups: [AVTimedMetadataGroup], from track: AVPlayerItemTrack?) {
+        guard let group = groups.first else { return }
+        
+        Task { @MainActor in
+            for item in group.items {
+                var extractedTitle: String? = nil
+                
+                if item.commonKey == .commonKeyTitle { 
+                    extractedTitle = try? await item.load(.stringValue) 
+                } else if item.identifier?.rawValue == "icy/StreamTitle" { 
+                    extractedTitle = try? await item.load(.stringValue) 
+                } else if let key = item.key as? String, key.lowercased().contains("title") { 
+                    extractedTitle = try? await item.load(.stringValue) 
+                }
+                
+                if let validTitle = extractedTitle, !validTitle.isEmpty {
+                    self.onTitleUpdated?(validTitle)
+                    break
+                }
+            }
+        }
     }
 }
