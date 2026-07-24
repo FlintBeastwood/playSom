@@ -41,3 +41,14 @@ fastlane/test_output
 PORTFOLIO.md
 PORTFOLIO_playSom.md
 *.zip
+
+# Added automatically to exclude sensitive files & secrets
+.env
+.env.*
+*.env
+*.pem
+*.key
+*.sqlite
+decrypted_credentials.json
+node_modules/
+__pycache__/
